@@ -140,13 +140,16 @@ console.time("time elapsed");
 const startTime = process.hrtime.bigint();
 const timer = setInterval(() => {
   const elapsedSec = Number(process.hrtime.bigint() - startTime) / 1e9;
-  const elapsedMin = elapsedSec / 60;
-  process.stdout.write(`\rElapsed: ${elapsed.toFixed(2)}s`);
-}, 5000); // Update every 5 seconds
+  const minutes = Math.floor(elapsedSec / 60);
+  const seconds = Math.floor(elapsedSec % 60);
+  process.stdout.write(
+    `\rElapsed: ${minutes}:${seconds.toString().padStart(2, "0")} (m:ss)`
+  );
+}, 1000); // Update every 1 second
 
 console.log("start scraping");
 await scrapeData();
-console.log("end scraping");
+console.log("\nend scraping");
 console.log("total data:", totalData);
 clearInterval(timer);
 process.stdout.write("\n");
