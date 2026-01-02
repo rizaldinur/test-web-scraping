@@ -125,6 +125,7 @@ const scrapeData = async () => {
     }
 
     await fs.writeFile("scraped_data.csv", csv);
+    await fs.writeFile("scraped_data.json", JSON.stringify(results, null, 2));
 
     await browser.close();
   } catch (error) {
